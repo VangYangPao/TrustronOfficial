@@ -82,7 +82,7 @@ bool fAlerts = DEFAULT_ALERTS;
 
 //unsigned int nStakeMinAge = 6 * 60 * 60; //6 hours
 
-static unsigned int nStakeMinAgeV1 = 24 * 60 * 60;//6 * 60 * 60; // 6 hours //myfix
+static unsigned int nStakeMinAgeV1 = 10 * 60;//24 * 60 * 60;//6 * 60 * 60; // 6 hours //myfix
 static unsigned int nStakeMinAgeV2 = 24 * 60 * 60; //12 * 60 * 60; // 12 hours after block 69,000 //myfix
 const int targetReadjustment_forkBlockHeight = 69000; //retargeting since 69,000 block
 
@@ -2113,11 +2113,11 @@ int64_t GetBlockValue(int nHeight)
 		} else if(nHeight > 400 && nHeight <= 1500) { //PoS phase
 			nSubsidy = 5 * COIN; // "instamine"
 	    } else if(nHeight > 1500 && nHeight <= 210000) {
-			nSubsidy = 8 * COIN;
+			nSubsidy = 10 * COIN;
 	    } else if(nHeight > 210000 && nHeight <= 840000) { 
-			nSubsidy = 4 * COIN;
+			nSubsidy = 8 * COIN;
 	    } else if(nHeight > 840000 && nHeight <= 1050000) { 
-			nSubsidy = 1 * COIN;
+			nSubsidy = 4 * COIN;
 	    } else {
 	        nSubsidy = 1 * COIN;
 	    }
@@ -2136,7 +2136,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
     }
 	
 	// 80% for Masternodes
-	if (nHeight <= 1500) {
+	if (nHeight <= 30){//1500) {
 	      ret = blockValue  / 100 * 0;
 	} else if (nHeight > 1) {
 		  ret = blockValue  / 100 * 60; //80%

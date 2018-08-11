@@ -28,8 +28,6 @@ struct SeedSpec6 {
 
 #include "chainparamsseeds.h"
 
-//myfix
-#include "arith_uint256.h" 
 /**
  * Main network
  */
@@ -58,7 +56,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("00006eb8f6f84dd032d09adc52515dc697fcc7505ea7ec430126e3a4811d8654")); 
+    (0, uint256("00000b4d9a3292ceb8d149529f4f5f9347ec6d6ca14c5381484145576c7d9256")); 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
     1533513600, // * UNIX timestamp of last checkpoint block//myfix
@@ -119,23 +117,23 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 90;//60; // Trustron: 1 day  //myfix
-        nTargetSpacing = 90;//60; //Trustron: 1 minute //myfix
-        nMaturity = 120;
+        nTargetTimespan = 30;//1 * 90;//60; // Trustron: 1 day  //myfix
+        nTargetSpacing = 30;//90;//60; //Trustron: 1 minute //myfix
+        nMaturity = 10;//120;
         nMasternodeCountDrift = 20;
-        nMaxMoneyOut = 12000000;//500000000 * COIN; //500,000,000//myfix
+        nMaxMoneyOut = 12000000 * COIN;//500000000 * COIN; //500,000,000//myfix
 
         /** Height or Time Based Activations **/
-        nLastPOWBlock = 57600;//800; //myfix
+        nLastPOWBlock = 50;//57600;//800; //myfix
         nModifierUpdateBlock = 999999999;
-        nZerocoinStartHeight = 1501;//999999999;//801; //??? masternode startblock is 800 ours is 1500
+        nZerocoinStartHeight = 51;//57601;//999999999;//801; //??? masternode startblock is 800 ours is 1500
         nAccumulatorStartHeight = 1;
         nZerocoinStartTime = 2000000000;//1527811200; // Friday, June 1, 2018 12:00:00 AM - GMT
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = ~1; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = ~1; //First block that bad serials emerged
         nBlockLastGoodCheckpoint = ~1; //Last valid accumulator checkpoint
-        
+
         /**
          * Build the genesis block. Note that the output of the genesis coinbase cannot
          * be spent as it did not originally exist in the database.
@@ -159,11 +157,49 @@ public:
         genesis.nVersion = 1;
         genesis.nTime = 1533513600;//myfix 2018/8/6 //1525551420;  // Thursday, Saturday, May 5, 2018 8:17:00 PM GNT
         genesis.nBits = 0x1e0ffff0;
+<<<<<<< HEAD
+        genesis.nNonce = 1232053;//myfix
+
+        // myfix for create genesis
+        if (false && genesis.GetHash() != hashGenesisBlock)
+        {
+            printf("Searching for genesis block...\n");
+            // This will figure out a valid hash and Nonce if you're
+            // creating a different genesis block:
+            uint256 hashTarget = uint256().SetCompact(genesis.nBits);
+            uint256 thash;
+ 
+            while(1)
+            {
+                // Generic scrypt
+                thash = genesis.GetHash();
+
+                if (thash <= hashTarget)
+                    break;
+                if ((genesis.nNonce & 0xFFF) == 0)
+                {
+                    printf("nonce %08X: hash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+                }
+                ++genesis.nNonce;
+                if (genesis.nNonce == 0)
+                {
+                    printf("NONCE WRAPPED, incrementing time\n");
+                    ++genesis.nTime;
+                }
+            }
+            printf("genesis.nTime = %u \n", genesis.nTime);
+            printf("genesis.nNonce = %u \n", genesis.nNonce);
+            printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
+            printf("genesis.GetMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());            
+        } 
+
+=======
         genesis.nNonce = 0;//myfix		
         
+>>>>>>> 40180a3ab16d523f19c49956d597b0197f8f9525
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0000cc75a7c6fa2ce8186e24f872e43acf88b21a1cc02aa11a4ceaee2a562d4c"));
-        assert(genesis.hashMerkleRoot == uint256("3bf54807365f102ff9cdb07cf5f4af411503d5b544835dc96a5beaee140ad419"));
+        assert(hashGenesisBlock == uint256("00000b4d9a3292ceb8d149529f4f5f9347ec6d6ca14c5381484145576c7d9256"));
+        assert(genesis.hashMerkleRoot == uint256("7450e52a440a90f519f604844a0da273585cf8935d2a867d1811331168a03106"));
 
         vSeeds.push_back(CDNSSeedData("seed1", "142.93.50.18"));
         vSeeds.push_back(CDNSSeedData("seed2", "159.65.1.182"));
