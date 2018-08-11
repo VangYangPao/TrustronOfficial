@@ -82,8 +82,8 @@ bool fAlerts = DEFAULT_ALERTS;
 
 //unsigned int nStakeMinAge = 6 * 60 * 60; //6 hours
 
-static unsigned int nStakeMinAgeV1 = 10 * 60;//24 * 60 * 60;//6 * 60 * 60; // 6 hours //myfix
-static unsigned int nStakeMinAgeV2 = 24 * 60 * 60; //12 * 60 * 60; // 12 hours after block 69,000 //myfix
+static unsigned int nStakeMinAgeV1 = 10 * 60;//24 * 60 * 60;//6 * 60 * 60; // 6 hours 
+static unsigned int nStakeMinAgeV2 = 24 * 60 * 60; //12 * 60 * 60; // 12 hours after block 69,000 
 const int targetReadjustment_forkBlockHeight = 69000; //retargeting since 69,000 block
 
 int64_t nReserveBalance = 0;
@@ -2089,7 +2089,7 @@ double ConvertBitsToDouble(unsigned int nBits)
 
     return dDiff;
 }
-//myfix
+
 int64_t GetBlockValue(int nHeight)
 {
     int64_t nSubsidy = 0;
